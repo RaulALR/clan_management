@@ -1,0 +1,22 @@
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    .return-button{
+        width: 10em;
+    }
+
+    .card-container{
+        padding: 1em;
+    }
+
+    .mat-drawer-content{
+        height: 93%;
+        overflow-y: auto;
+    }
+}

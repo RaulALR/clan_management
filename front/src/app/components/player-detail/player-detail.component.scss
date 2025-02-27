@@ -1,0 +1,19 @@
+.details-container {
+    margin: 1em;
+    display: flex;
+    gap: 1em;
+    flex-direction: column;
+
+    .details-player-container {
+        display: flex;
+        gap: 1em;
+    }
+
+    .stats-title {
+        h3 {
+            margin-bottom: 0em;
+            font-weight: bold;
+        }
+        padding: 1em;
+    }
+}

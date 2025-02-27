@@ -1,0 +1,21 @@
+<mat-card class="card">
+  <h2>Insertar Nueva Partida</h2>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Título de la Partida</mat-label>
+    <input matInput type="text" [(ngModel)]="title" maxlength="255" placeholder="Escribe un título..." />
+  </mat-form-field>
+
+  <mat-checkbox [(ngModel)]="competitive" class="full-width">
+    ¿Es una partida competitiva?
+  </mat-checkbox>
+  
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Datos de la Partida (JSON)</mat-label>
+    <textarea matInput [(ngModel)]="matchData" rows="10" placeholder="Pega aquí los datos en formato JSON"></textarea>
+  </mat-form-field>
+
+  <button (click)="onSubmit()" class="btn btn-primary" [disabled]="!matchData || !title">
+    Insertar Partida
+  </button>
+</mat-card>

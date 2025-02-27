@@ -1,0 +1,35 @@
+<mat-toolbar color="primary">
+  <div class="toolbar-container">
+    <div class="title-container">
+      <button mat-icon-button (click)="isSidenavOpen = !isSidenavOpen">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Gestión LCM</span>
+    </div>
+    <div class="user-container">
+      <span class="spacer"></span>
+      <span *ngIf="username">{{ username }}</span>
+      <button mat-button *ngIf="username" (click)="logout()"><mat-icon>logout</mat-icon></button>
+    </div>
+  </div>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="side" [(opened)]="isSidenavOpen">
+    <mat-nav-list>
+      <a mat-list-item routerLink="/players" (click)="isSidenavOpen = false">
+        <mat-icon>people</mat-icon> Jugadores
+      </a>
+      <a mat-list-item routerLink="/matches" (click)="isSidenavOpen = false">
+        <mat-icon>sports_esports</mat-icon> Partidas
+      </a>
+      <a mat-list-item routerLink="/add-matches" (click)="isSidenavOpen = false">
+        <mat-icon>add_circle</mat-icon> Insertar Partida
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

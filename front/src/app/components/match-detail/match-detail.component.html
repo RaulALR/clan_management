@@ -1,0 +1,61 @@
+<div class="match-detail-container">
+  <mat-card class="card card-container">
+    <button mat-raised-button color="warn" (click)="goBack()" class="return-button">
+      <mat-icon>arrow_back</mat-icon> Volver
+    </button>
+
+    <h2>Detalles de la Partida</h2>
+
+    <div class="details-container">
+      <p><strong>Título:</strong> {{ match?.title }}</p>
+      <p><strong>Competitiva:</strong> {{ match?.competitive ? 'Sí' : 'No' }}</p>
+      <p><strong>Mapa:</strong> {{ match?.map_name }}</p>
+      <p><strong>Inicio:</strong> {{ match?.start_time | date:'short' }}</p>
+      <p><strong>Fin:</strong> {{ match?.end_time | date:'short' }}</p>
+      <p><strong>Resultado:</strong> Axis {{ match?.result_axis }} - {{ match?.result_allied }} Allied</p>
+      <p><strong>Información Extra:</strong> {{ match?.extra_info || 'Sin información' }}</p>
+    </div>
+  </mat-card>
+
+  <mat-card class="card">
+    <div class="stats-title">
+      <h3>Estadísticas de los Jugadores</h3>
+    </div>
+    <table mat-table [dataSource]="playerStats" class="mat-elevation-z8" matSort (matSortChange)="sortData($event)">
+      <!-- Kills -->
+      <ng-container matColumnDef="names">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+        <td mat-cell *matCellDef="let player"> {{ player.names }} </td>
+      </ng-container>
+
+      <!-- Kills -->
+      <ng-container matColumnDef="kills">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Kills </th>
+        <td mat-cell *matCellDef="let player"> {{ player.kills }} </td>
+      </ng-container>
+
+      <!-- Deaths -->
+      <ng-container matColumnDef="deaths">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Deaths </th>
+        <td mat-cell *matCellDef="let player"> {{ player.deaths }} </td>
+      </ng-container>
+
+      <!-- Teamkills -->
+      <ng-container matColumnDef="teamkills">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Teamkills </th>
+        <td mat-cell *matCellDef="let player"> {{ player.teamkills }} </td>
+      </ng-container>
+
+      <!-- K/D Ratio -->
+      <ng-container matColumnDef="kill_death_ratio">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> K/D Ratio </th>
+        <td mat-cell *matCellDef="let player"> {{ player.kill_death_ratio | number:'1.2-2' }} </td>
+      </ng-container>
+
+      <!-- Encabezados -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <!-- Filas -->
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card>
+</div>
