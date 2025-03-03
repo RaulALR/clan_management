@@ -1,24 +1,21 @@
-# Usa una imagen de Node.js para construir el frontend
 FROM node:18-alpine AS build
+WORKDIR /usr/src/app
 
-WORKDIR /app
-
-# Copia y descarga dependencias
 COPY package*.json ./
-RUN npm install
+RUN npm install --legacy-peer-deps
 
-# Copia el código fuente y compila Angular
 COPY . .
-RUN npm run build --prod
+RUN npm run build --configuration=production
 
-# Usa un servidor Nginx para servir Angular en producción
 FROM nginx:latest
+WORKDIR /usr/share/nginx/html
 
-# Copia los archivos compilados de Angular al servidor Nginx
-COPY --from=build /app/dist/front /usr/share/nginx/html
+RUN rm -rf ./*
 
-# Expone el puerto 80 para servir la app Angular
+COPY --from=build /usr/src/app/dist/front .
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
 EXPOSE 80
 
-# Inicia Nginx
 CMD ["nginx", "-g", "daemon off;"]
