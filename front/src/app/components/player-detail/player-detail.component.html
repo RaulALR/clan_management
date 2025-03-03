@@ -25,7 +25,6 @@
       <h3>Estadísticas del Jugador</h3>
     </div>
     <table mat-table [dataSource]="playerStats" class="mat-elevation-z8" matSort (matSortChange)="sortData($event)">
-      <!-- Match ID -->
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Partida </th>
         <td mat-cell *matCellDef="let stat"> {{ stat.title }} </td>
@@ -35,53 +34,38 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Partida </th>
         <td mat-cell *matCellDef="let stat"> {{ stat.start_time | date:'dd/MM/YYYY'  }} </td>
       </ng-container>
-
-      <!-- Kills -->
       <ng-container matColumnDef="kills">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Kills </th>
         <td mat-cell *matCellDef="let stat"> {{ stat.kills }} </td>
       </ng-container>
-
-      <!-- Deaths -->
       <ng-container matColumnDef="deaths">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Deaths </th>
         <td mat-cell *matCellDef="let stat"> {{ stat.deaths }} </td>
       </ng-container>
-
-      <!-- Teamkills -->
       <ng-container matColumnDef="teamkills">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Teamkills </th>
         <td mat-cell *matCellDef="let stat"> {{ stat.teamkills }} </td>
       </ng-container>
-
-      <!-- K/D Ratio -->
       <ng-container matColumnDef="kill_death_ratio">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> K/D Ratio </th>
         <td mat-cell *matCellDef="let stat"> {{ stat.kill_death_ratio | number:'1.2-2' }} </td>
       </ng-container>
-
-      <!-- K/D Ratio -->
       <ng-container matColumnDef="kills_per_minute">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Kill/Min </th>
         <td mat-cell *matCellDef="let stat"> {{ stat.kills_per_minute | number:'1.2-2' }} </td>
       </ng-container>
-
-      <!-- K/D Ratio -->
       <ng-container matColumnDef="combat">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Combate </th>
         <td mat-cell *matCellDef="let stat"> {{ stat.combat }} </td>
       </ng-container>
-
-      <!-- K/D Ratio -->
       <ng-container matColumnDef="support">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Soporte </th>
         <td mat-cell *matCellDef="let stat"> {{ stat.support }} </td>
       </ng-container>
-
-      <!-- Encabezados -->
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <!-- Filas -->
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </mat-card>
+  
+  <app-kills-per-match [killsData]="killsData"></app-kills-per-match>
 </div>
