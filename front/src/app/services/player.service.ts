@@ -25,4 +25,17 @@ export class PlayerService {
   getPlayersById(id: string, sortBy: string, sortOrder: string): Observable<any> {
     return this.http.get<any[]>(`${this.apiUrl}${CommonConstants.URL.PLAYERS}/${id}?sortBy=${sortBy}&sortOrder=${sortOrder}`);
   }
+
+  getPlayersAllDetails(name?: string, player_id?: string, lcm?: boolean, sortBy?: string, sortOrder?: string): Observable<any[]> {
+    let params = new HttpParams();
+
+    if (name) params = params.set('name', name);
+    if (player_id) params = params.set('player_id', player_id);
+    if (lcm !== undefined) params = params.set('lcm', lcm.toString());
+    if (sortBy !== undefined) params = params.set('sortBy', sortBy.toString());
+    if (sortOrder !== undefined) params = params.set('sortOrder', sortOrder.toString());
+    debugger
+
+    return this.http.get<any[]>(`${this.apiUrl}${CommonConstants.URL.PLAYERSALLDETAILS}`, { params });
+  }
 }

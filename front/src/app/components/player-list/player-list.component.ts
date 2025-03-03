@@ -24,11 +24,13 @@ import { ExcelExportService } from '../../services/excel-export.service';
 })
 export class PlayerListComponent implements OnInit {
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
-  displayedColumns: string[] = ['player_id', 'names', 'actions'];
+  displayedColumns: string[] = ['player_id', 'names', 'avg_kills', 'avg_kill_death_ratio', 'avg_kills_per_minute', 'actions'];
 
   filterName: string = '';
   filterPlayerId: string = '';
   filterLCM: boolean | undefined = true;
+  sortBy: string = 'names';
+  sortOrder: string = 'ASC';
 
   constructor(private playerService: PlayerService, private excelService: ExcelExportService) { }
 
@@ -37,7 +39,7 @@ export class PlayerListComponent implements OnInit {
   }
 
   loadPlayers(): void {
-    this.playerService.getPlayers(this.filterName, this.filterPlayerId, this.filterLCM)
+    this.playerService.getPlayersAllDetails(this.filterName, this.filterPlayerId, this.filterLCM, this.sortBy, this.sortOrder)
       .subscribe(data => {
         this.dataSource = new MatTableDataSource(data);
       });
@@ -48,6 +50,12 @@ export class PlayerListComponent implements OnInit {
       .subscribe(data => {
         this.excelService.exportToExcel(data);
       });
+  }
+
+  sortData(event: any) {
+    this.sortBy = event.active;
+    this.sortOrder = event.direction.toUpperCase() || 'ASC';
+    this.loadPlayers();
   }
 
   clearFilters(): void {

@@ -37,4 +37,22 @@ const getPlayerDetails = async (req, res) => {
   }
 };
 
-module.exports = { createPlayer, getAllPlayers, getPlayerDetails };
+const getAllPlayersWithDetails = async (req, res) => {
+  try {
+    const { name, player_id, lcm, sortBy, sortOrder } = req.query;
+    const filters = { name, player_id, lcm };
+
+    const players = await PlayerService.getAllPlayersWithDetails(filters, sortBy, sortOrder);
+    res.json(players);
+  } catch (error) {
+    console.error("Error al obtener jugadores:", error);
+    res.status(500).json({ error: "Error en el servidor" });
+  }
+};
+
+module.exports = {
+  createPlayer,
+  getAllPlayers,
+  getPlayerDetails,
+  getAllPlayersWithDetails,
+};
