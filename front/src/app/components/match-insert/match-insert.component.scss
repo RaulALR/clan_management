@@ -1,20 +1,25 @@
-/* match-insert.component.scss */
-.container {
+.insert-match-container {
+  .container {
     width: 80%;
     margin: auto;
   }
-  
+
   h2 {
     text-align: center;
   }
-  
+
   textarea {
     width: 100%;
     margin-bottom: 20px;
   }
-  
+
   button {
     display: block;
     margin: 20px auto;
   }
-  
+
+  .text-area-field {
+    height: 36em;
+  }
+
+}
