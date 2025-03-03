@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ExcelExportService } from '../../services/excel-export.service';
 
 @Component({
   selector: 'app-player-list',
@@ -19,18 +20,17 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     RouterModule
   ],
-  providers: [PlayerService]
+  providers: [PlayerService, ExcelExportService]
 })
 export class PlayerListComponent implements OnInit {
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   displayedColumns: string[] = ['player_id', 'names', 'actions'];
 
-  // Filtros
   filterName: string = '';
   filterPlayerId: string = '';
   filterLCM: boolean | undefined = true;
 
-  constructor(private playerService: PlayerService) {}
+  constructor(private playerService: PlayerService, private excelService: ExcelExportService) { }
 
   ngOnInit(): void {
     this.loadPlayers();
@@ -40,6 +40,13 @@ export class PlayerListComponent implements OnInit {
     this.playerService.getPlayers(this.filterName, this.filterPlayerId, this.filterLCM)
       .subscribe(data => {
         this.dataSource = new MatTableDataSource(data);
+      });
+  }
+
+  downloadClanExcel(): void {
+    this.playerService.getPlayers('', '', true)
+      .subscribe(data => {
+        this.excelService.exportToExcel(data);
       });
   }
 
