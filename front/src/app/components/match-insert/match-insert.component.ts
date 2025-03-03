@@ -23,19 +23,22 @@ export class MatchInsertComponent {
   title: string = '';
   competitive: boolean = false;
 
-  constructor(private matchService: MatchService) {}  // Inyectar el servicio
+  constructor(private matchService: MatchService) { }
 
   onSubmit() {
     try {
       const parsedData = JSON.parse(this.matchData);
       parsedData.result.title = this.title;
-      parsedData.result.competitive = this.competitive; 
+      parsedData.result.competitive = this.competitive;
 
       // Validar el formato del JSON
       if (this.isValidMatchData(parsedData)) {
         this.matchService.insertMatch(parsedData).subscribe(
           (response) => {
-            console.log('Partida insertada con éxito', response);
+            this.title = '';
+            this.competitive = false;
+            this.matchData = '';
+            alert('Partida insertada');
           },
           (error) => {
             console.error('Error al insertar la partida', error);
@@ -51,12 +54,12 @@ export class MatchInsertComponent {
 
   isValidMatchData(data: any): boolean {
     return (
-      this.title && 
-      data && 
-      data.result && 
-      data.result.id && 
-      data.result.start && 
-      data.result.end && 
+      this.title &&
+      data &&
+      data.result &&
+      data.result.id &&
+      data.result.start &&
+      data.result.end &&
       Array.isArray(data.result.player_stats)
     );
   }

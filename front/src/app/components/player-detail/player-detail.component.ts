@@ -22,6 +22,8 @@ export class PlayerDetailComponent implements OnInit {
   sortOrder: string = 'DESC';
   playerId = '';
   killsData: any = [];
+  kdData: any = [];
+  killMinData: any = [];
 
   constructor(private route: ActivatedRoute, private playerService: PlayerService, private router: Router) { }
 
@@ -54,6 +56,17 @@ export class PlayerDetailComponent implements OnInit {
           this.killsData.push({ matchName: index, kills: element.kills, title: element.title });
         });
       }
+      if (this.kdData?.length === 0) {
+        this.playerStats.slice().reverse().forEach((element, index) => {
+          this.kdData.push({ matchName: index, kills: element.kill_death_ratio, title: element.title });
+        });
+      }
+      if (this.killMinData?.length === 0) {
+        this.playerStats.slice().reverse().forEach((element, index) => {
+          this.killMinData.push({ matchName: index, kills: element.kills_per_minute, title: element.title });
+        });
+      }
+
       this.player['globalKillMin'] = this.getAverage(this.playerStats, 'kills_per_minute');
       this.player['globalKillDeath'] = this.getAverage(this.playerStats, 'kill_death_ratio');
       this.player['globalCombat'] = this.getAverage(this.playerStats, 'combat');

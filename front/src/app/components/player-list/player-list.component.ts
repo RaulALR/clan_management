@@ -23,7 +23,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class PlayerListComponent implements OnInit {
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
-  displayedColumns: string[] = ['player_id', 'names', 'lcm', 'actions'];
+  displayedColumns: string[] = ['player_id', 'names', 'actions'];
 
   // Filtros
   filterName: string = '';

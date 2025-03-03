@@ -66,6 +66,23 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </mat-card>
-  
-  <app-kills-per-match [killsData]="killsData"></app-kills-per-match>
+
+  <ng-container *ngIf="killsData && killsData.length > 0">
+    <div class="graph-container">
+      <div class="kills-per-match">
+        <h2>Kills por partida</h2>
+        <app-kills-per-match [killsData]="killsData"></app-kills-per-match>
+      </div>
+
+      <div class="kills-per-match">
+        <h2>K/D ratio</h2>
+        <app-kills-per-match [killsData]="kdData"></app-kills-per-match>
+      </div>
+
+      <div class="kills-per-match">
+        <h2>Kill min</h2>
+        <app-kills-per-match [killsData]="killMinData"></app-kills-per-match>
+      </div>
+    </div>
+  </ng-container>
 </div>

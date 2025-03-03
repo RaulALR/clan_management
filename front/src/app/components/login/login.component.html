@@ -1,16 +1,18 @@
 <div class="login-container">
-<mat-card class="card-container">
-  <h2>Iniciar Sesión</h2>
-  <mat-form-field>
-    <mat-label>Usuario</mat-label>
-    <input matInput [(ngModel)]="username">
-  </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Contraseña</mat-label>
-    <input matInput [(ngModel)]="password" type="password">
-  </mat-form-field>
+  <img src="./favicon.ico" />
+  <mat-card class="card-container">
+    <h2>Iniciar Sesión</h2>
+    <mat-form-field>
+      <mat-label>Usuario</mat-label>
+      <input matInput [(ngModel)]="username">
+    </mat-form-field>
 
-  <button mat-raised-button color="primary" (click)="login()">Iniciar Sesión</button>
-</mat-card>
+    <mat-form-field>
+      <mat-label>Contraseña</mat-label>
+      <input matInput [(ngModel)]="password" type="password">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="login()">Iniciar Sesión</button>
+  </mat-card>
 </div>
