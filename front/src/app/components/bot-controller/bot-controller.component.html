@@ -1,0 +1,24 @@
+<div class="bot-controller-container">
+  <mat-card class="card card-container">
+    <h2>Control de Bots de Discord</h2>
+    <div>
+      <h3>Bot lista</h3>
+      <div class="load-file-container">
+        <input type="file" #fileInput hidden (change)="onFileSelected($event)">
+        <button mat-raised-button color="primary" (click)="fileInput.click()">
+          <mat-icon>upload</mat-icon> Subir archivo
+        </button>
+        <p *ngIf="fileName">{{ fileName }}</p>
+      </div>
+    </div>
+
+    <div>
+      <h3>Actualizar miembros</h3>
+      <div class="load-file-container">
+        <button mat-raised-button color="primary" (click)="updateMembers()">
+          <mat-icon>upload</mat-icon> Actualizar
+        </button>
+      </div>
+    </div>
+  </mat-card>
+</div>

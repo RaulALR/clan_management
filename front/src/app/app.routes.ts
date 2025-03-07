@@ -7,6 +7,7 @@ import { PlayerDetailComponent } from './components/player-detail/player-detail.
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginComponent } from './components/login/login.component';
+import { BotControllerComponent } from './components/bot-controller/bot-controller.component';
 
 export const routes: Routes = [
   {
@@ -20,6 +21,7 @@ export const routes: Routes = [
       { path: 'matches', component: MatchListComponent },
       { path: 'matches/:id', component: MatchDetailComponent },
       { path: 'players/:id', component: PlayerDetailComponent },
+      { path: 'bot-controller', component: BotControllerComponent },
     ]
   },
   { path: 'login', component: LoginComponent },

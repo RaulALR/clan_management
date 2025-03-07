@@ -34,7 +34,6 @@ export class PlayerService {
     if (lcm !== undefined) params = params.set('lcm', lcm.toString());
     if (sortBy !== undefined) params = params.set('sortBy', sortBy.toString());
     if (sortOrder !== undefined) params = params.set('sortOrder', sortOrder.toString());
-    debugger
 
     return this.http.get<any[]>(`${this.apiUrl}${CommonConstants.URL.PLAYERSALLDETAILS}`, { params });
   }
