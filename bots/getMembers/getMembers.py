@@ -1,6 +1,6 @@
 import discord
 import logging
-from bots.config import ROLE_HIERARCHY_MEMBERS
+from config import ROLE_HIERARCHY_MEMBERS
 
 logger = logging.getLogger(__name__)
 

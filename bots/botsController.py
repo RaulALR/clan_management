@@ -1,7 +1,7 @@
 import socketio
 import logging
 import asyncio
-import bots.getMembers.main
+import getMembers.main
 from config import SERVER_URL, BOT_GET_MEMBERS
 
 logger = logging.getLogger(__name__)
@@ -18,9 +18,9 @@ def start_io():
         bot_name = data.get("botName")
         command = data.get("command")
         if bot_name == BOT_GET_MEMBERS:
-            bot_loop = bots.getMembers.main.bot.loop
+            bot_loop = getMembers.main.bot.loop
             future = asyncio.run_coroutine_threadsafe(
-                bots.getMembers.main.execute_command(command), bot_loop
+                getMembers.main.execute_command(command), bot_loop
             )
             response = future.result()
 

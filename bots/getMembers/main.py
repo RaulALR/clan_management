@@ -1,9 +1,9 @@
-from bots.config import BOT_TOKEN, GUILD_ID, GET_MEMBERS_CHANNEL_ID
+from config import BOT_TOKEN, GUILD_ID, GET_MEMBERS_CHANNEL_ID
 import discord
 import logging
 from discord.ext import commands
-from bots.logging_config import logger
-from bots.getMembers.getMembers import get_members
+from logging_config import logger
+from getMembers.getMembers import get_members
 
 intents = discord.Intents.default()
 intents.message_content = True
