@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ExcelExportService } from '../../services/excel-export.service';
 
 @Component({
   selector: 'app-player-list',
@@ -19,28 +20,42 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     RouterModule
   ],
-  providers: [PlayerService]
+  providers: [PlayerService, ExcelExportService]
 })
 export class PlayerListComponent implements OnInit {
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
-  displayedColumns: string[] = ['player_id', 'names', 'lcm', 'actions'];
+  displayedColumns: string[] = ['player_id', 'names', 'avg_kills', 'avg_kill_death_ratio', 'avg_kills_per_minute', 'actions'];
 
-  // Filtros
   filterName: string = '';
   filterPlayerId: string = '';
   filterLCM: boolean | undefined = true;
+  sortBy: string = 'names';
+  sortOrder: string = 'ASC';
 
-  constructor(private playerService: PlayerService) {}
+  constructor(private playerService: PlayerService, private excelService: ExcelExportService) { }
 
   ngOnInit(): void {
     this.loadPlayers();
   }
 
   loadPlayers(): void {
-    this.playerService.getPlayers(this.filterName, this.filterPlayerId, this.filterLCM)
+    this.playerService.getPlayersAllDetails(this.filterName, this.filterPlayerId, this.filterLCM, this.sortBy, this.sortOrder)
       .subscribe(data => {
         this.dataSource = new MatTableDataSource(data);
       });
+  }
+
+  downloadClanExcel(): void {
+    this.playerService.getPlayers('', '', true)
+      .subscribe(data => {
+        this.excelService.exportToExcel(data);
+      });
+  }
+
+  sortData(event: any) {
+    this.sortBy = event.active;
+    this.sortOrder = event.direction.toUpperCase() || 'ASC';
+    this.loadPlayers();
   }
 
   clearFilters(): void {

@@ -1,5 +1,6 @@
 export const environment = {
     production: true,
-    apiUrl: 'http://localhost:3000/api' // 🔹 URL del backend en producción
+    apiUrl: 'http://localhost:3000/api',
+    websocketUrl: 'http://localhost:3000'
   };
   

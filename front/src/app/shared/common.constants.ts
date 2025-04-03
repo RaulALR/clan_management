@@ -3,6 +3,7 @@ export const CommonConstants = {
         LOGIN: '/auth/login',
         LOGOUT: '/auth/logout',
         MATCHES: '/matches',
-        PLAYERS: '/players'
+        PLAYERS: '/players',
+        PLAYERSALLDETAILS: '/players/all/details'
     }
 }

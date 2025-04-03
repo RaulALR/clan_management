@@ -1,0 +1,15 @@
+.bot-controller-container {
+    padding: 1em;
+
+    .load-file-container {
+        display: flex;
+        gap: 1em;
+
+        p {
+            display: flex;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+    }
+}

@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlayerService } from '../../services/player.service';
 import { MaterialModule } from '../../shared/material.module';
+import { KillsPerMatchComponent } from '../graphs/kills-per-match/kills-per-match.component';
 
 @Component({
   selector: 'app-player-detail',
   standalone: true,
-  imports: [CommonModule, MaterialModule, HttpClientModule],
+  imports: [CommonModule, MaterialModule, HttpClientModule, KillsPerMatchComponent],
   templateUrl: './player-detail.component.html',
   styleUrls: ['./player-detail.component.scss'],
   providers: [PlayerService],
@@ -20,6 +21,9 @@ export class PlayerDetailComponent implements OnInit {
   sortBy: string = 'start_time';
   sortOrder: string = 'DESC';
   playerId = '';
+  killsData: any = [];
+  kdData: any = [];
+  killMinData: any = [];
 
   constructor(private route: ActivatedRoute, private playerService: PlayerService, private router: Router) { }
 
@@ -47,6 +51,22 @@ export class PlayerDetailComponent implements OnInit {
     this.playerService.getPlayersById(this.playerId, this.sortBy, this.sortOrder).subscribe(data => {
       this.player = data.player;
       this.playerStats = data.player_stats;
+      if (this.killsData?.length === 0) {
+        this.playerStats.slice().reverse().forEach((element, index) => {
+          this.killsData.push({ matchName: index, kills: element.kills, title: element.title });
+        });
+      }
+      if (this.kdData?.length === 0) {
+        this.playerStats.slice().reverse().forEach((element, index) => {
+          this.kdData.push({ matchName: index, kills: element.kill_death_ratio, title: element.title });
+        });
+      }
+      if (this.killMinData?.length === 0) {
+        this.playerStats.slice().reverse().forEach((element, index) => {
+          this.killMinData.push({ matchName: index, kills: element.kills_per_minute, title: element.title });
+        });
+      }
+
       this.player['globalKillMin'] = this.getAverage(this.playerStats, 'kills_per_minute');
       this.player['globalKillDeath'] = this.getAverage(this.playerStats, 'kill_death_ratio');
       this.player['globalCombat'] = this.getAverage(this.playerStats, 'combat');
@@ -64,7 +84,7 @@ export class PlayerDetailComponent implements OnInit {
   ngOnInit(): void {
     this.playerId = this.route.snapshot.paramMap.get('id') || '';
     if (this.playerId) {
-      this.loadPlayerById()
+      this.loadPlayerById();
     }
   }
 }

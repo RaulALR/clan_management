@@ -17,12 +17,20 @@ const PlayerService = {
       return null;
     }
 
-    const playerStatsResult = await PlayerStats.findByPlayerId(id, sortBy, order);
+    const playerStatsResult = await PlayerStats.findByPlayerId(
+      id,
+      sortBy,
+      order
+    );
 
     return {
       player: playerResult.rows[0],
       player_stats: playerStatsResult.rows,
     };
+  },
+
+  getAllPlayersWithDetails: async (filters, sortBy, sortOrder) => {
+    return await Player.findAllWithStats(filters, sortBy, sortOrder);
   }
 };
 

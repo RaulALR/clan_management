@@ -18,6 +18,20 @@ services:
     networks:
       - app-network
 
+  bots:
+    build:
+      context: ./bots
+    container_name: bots_service
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./bots:/app
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge

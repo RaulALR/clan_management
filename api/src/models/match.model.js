@@ -22,7 +22,6 @@ const Match = {
 
   findAll: async (sortBy = "creation_time", sortOrder = "DESC") => {
     const order = sortOrder.toUpperCase() === "ASC" ? "ASC" : "DESC";
-    console.log(sortBy)
     return await client.query(
       `SELECT * FROM matches ORDER BY ${sortBy} ${order}`
     );
